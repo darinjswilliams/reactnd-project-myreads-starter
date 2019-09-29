@@ -22,10 +22,32 @@ class LayOutBooks extends React.Component {
   
       render() {
           const {book} = this.props
+
+          let bc = null;
+        try {
+            bc = {
+                width: 128,
+                height: 192,
+                backgroundImage: 'url(' + book.imageLinks.smallThumbnail + ')'
+            };
+        }
+        catch (err) {
+            bc = {
+
+                backgroundImage: 'url(http://startyoungfinancial.com/wp-content/uploads/2015/05/default-image.png)'
+            };
+        }
+
+
+        const bookCover = bc != null ? bc : {
+
+            backgroundImage: 'url(http://startyoungfinancial.com/wp-content/uploads/2015/05/default-image.png)'
+        };
           return (
               <div className="book">
               <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+            
+              <div className="book-cover" style={bookCover}/>
                 <div className="book-shelf-changer">
                   <select value={this.state.value} onChange={this.handleChange}>
                     <option value="move" disabled>Move to...</option>
